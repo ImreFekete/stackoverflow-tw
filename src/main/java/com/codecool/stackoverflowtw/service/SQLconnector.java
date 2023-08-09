@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLconnector {
-    private final String url = "jdbc:postgresql://localhost:5432/stackoverflow";
-    private final String user = "feket";
-    private final String password = "123456789";
+
+    private final String url = "jdbc:postgresql://localhost:5432/stackoverflow-twproject";
+    private final String user = "postgres";
+    private final String password = "372969";
 
     public Connection connect() {
         Connection conn = null;
