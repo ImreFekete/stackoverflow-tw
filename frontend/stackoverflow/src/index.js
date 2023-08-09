@@ -11,9 +11,9 @@ import MainPage from "./MainPage";
 const index = createBrowserRouter([{
     path: "/", element: <Layout/>, errorElement: <ErrorPage/>, children: [{
         path: "/", element: <MainPage/>
-    }, {
+    }, /*{
         path: "/:id", element: <Question/>
-    }]
+    }*/]
 }]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

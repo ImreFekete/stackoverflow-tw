@@ -1,11 +1,21 @@
 import "./MainPage.css";
-import {useState} from "react";
-import {Link} from "react-router-dom";
-const MainPage = () =>{
-    const [questions, setQuestions] = useState(null);
+import {useEffect, useState} from "react";
 
-    return (
-        <div className={"MainPage"}>
+const fetchQuestions = () => {
+    return fetch("http://localhost:8080/questions/all")
+        .then(response => response.json());
+}
+const MainPage = () => {
+    const [questions, setQuestions] = useState(null);
+    useEffect(() => {
+        fetchQuestions()
+            .then(questions => {
+                console.log(questions)
+                setQuestions(questions);
+            })
+    }, []);
+    if (questions == null) return (<div>LOADING...</div>);
+    return (<div className={"MainPage"}>
             <table className={"QuestionsTable"}>
                 <thead>
                 <tr>
@@ -21,24 +31,19 @@ const MainPage = () =>{
                 </tr>
                 </thead>
                 <tbody>
-                {
-                    questions.map(question =>(
-                        <tr key = {question.id}>
-                            <th>
-                                <Link to={""}>{question.name}</Link>
-                            </th>
-                            <th>
-                                {question.date}
-                            </th>
-                            <th>
-                                {question.answerCount}
-                            </th>
-                        </tr>
-                    ))
-                }
+                {questions.map(question => (<tr key={question.id}>
+                    <td>
+                        {question.title}
+                    </td>
+                    <td>
+                        {question.created}
+                    </td>
+                    <td>
+                        {question.answerCount}
+                    </td>
+                </tr>))}
                 </tbody>
             </table>
-        </div>
-    )
+        </div>)
 }
 export default MainPage;

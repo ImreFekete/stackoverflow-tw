@@ -1,9 +1,12 @@
-.QuestionsTable{
+.MainPage{
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: center;
 }
-th, td{
+.QuestionsTable{
+    display: table;
+    width: 80%;
+}
+table, th, td{
     border: 1px solid;
 }
 
