@@ -18,7 +18,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public List<Question> getAll() {
-        String SQL = "SELECT * FROM questions";
+        String SQL = """
+                SELECT q.*, COUNT(a.answer_id) AS answer_count
+                FROM questions q
+                         LEFT JOIN public.answers a ON q.question_id = a.question_id
+                GROUP BY q.question_id
+                ORDER BY question_id;""";
         List<Question> questions = new ArrayList<>();
         try (Connection conn = sqlConnector.connect();
              Statement stmt = conn.createStatement();
@@ -26,7 +31,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             while (rs.next()) {
                 questions.add(new Question(rs.getInt("question_id"), rs.getString("question_title"),
                         rs.getString("question_text"),
-                        rs.getTimestamp("created_at").toLocalDateTime()));
+                        rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -37,7 +42,13 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public Question getQuestionById(int id) {
-        String SQL = "SELECT * FROM questions WHERE question_id = ?";
+        String SQL ="""
+                SELECT q.*, COUNT(a.answer_id) AS answer_count
+                FROM questions q
+                         LEFT JOIN public.answers a ON q.question_id = a.question_id
+                WHERE q.question_id = ?
+                GROUP BY q.question_id
+                ORDER BY question_id;""";
         Question question = null;
         try (Connection conn = sqlConnector.connect();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
@@ -47,7 +58,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
                 while (rs.next()) {
                     question = new Question(rs.getInt("question_id"), rs.getString("question_title"),
                             rs.getString("question_text"),
-                            rs.getTimestamp("created_at").toLocalDateTime());
+                            rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count"));
                 }
             }
 
