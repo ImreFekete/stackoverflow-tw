@@ -33,7 +33,7 @@ const MainPage = () => {
                 <tbody>
                 {questions.map(question => (<tr key={question.id}>
                     <td>
-                        <Link to={"/answers/:id"}>{question.title}</Link>
+                        <Link to={`/answers/${question.id}`}>{question.title}</Link>
                     </td>
                     <td>
                         {question.created}
