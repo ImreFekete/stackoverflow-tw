@@ -1,6 +1,8 @@
 package com.codecool.stackoverflowtw.dao;
 
+import com.codecool.stackoverflowtw.controller.dto.NewAnswerDTO;
 import com.codecool.stackoverflowtw.controller.dto.NewQuestionDTO;
+import com.codecool.stackoverflowtw.dao.model.Answer;
 import com.codecool.stackoverflowtw.dao.model.Question;
 import com.codecool.stackoverflowtw.service.SQLconnector;
 
@@ -42,7 +44,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public Question getQuestionById(int id) {
-        String SQL ="""
+        String SQL = """
                 SELECT q.*, COUNT(a.answer_id) AS answer_count
                 FROM questions q
                          LEFT JOIN public.answers a ON q.question_id = a.question_id
@@ -67,6 +69,28 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
 
         return question;
+    }
+
+    @Override
+    public List<Answer> getQAnswersByQuestionId(int id) {
+        String SQL = """
+                SELECT * FROM answers WHERE question_id = ? ORDER BY answer_id
+                ;""";
+        List<Answer> answers = new ArrayList<>();
+        try (Connection conn = sqlConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    answers.add(new Answer(rs.getInt("answer_id"), rs.getString("answer_text"), rs.getTimestamp("created_at").toLocalDateTime()));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return answers;
     }
 
 
@@ -101,7 +125,37 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public boolean deleteQuestionByID(int id) {
+    public int addNewAnswer(NewAnswerDTO newAnswer, int id) {
+        String SQL = "INSERT INTO answers (answer_text, created_at, question_id)" +
+                "VALUES(?,?,?)";
+        int respId = 0;
+
+        try (Connection conn = sqlConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(SQL,
+                     Statement.RETURN_GENERATED_KEYS)) {
+
+            pstmt.setString(1, newAnswer.text());
+            pstmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setInt(3, id);
+
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        respId = rs.getInt(1);
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return respId;
+    }
+
+    @Override
+    public boolean deleteQuestionById(int id) {
         String SQL = "DELETE FROM answers WHERE question_id = ?;"
                 + "DELETE FROM questions WHERE question_id = ?";
 
@@ -110,6 +164,25 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
             pstmt.setInt(1, id);
             pstmt.setInt(2, id);
+
+            pstmt.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteAnswerById(int questionId, int answerId) {
+        String SQL = "DELETE FROM answers WHERE answer_id = ? AND question_id = ?";
+
+        try (Connection conn = sqlConnector.connect();
+             PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+
+            pstmt.setInt(1, answerId);
+            pstmt.setInt(2, questionId);
 
             pstmt.executeUpdate();
             return true;
