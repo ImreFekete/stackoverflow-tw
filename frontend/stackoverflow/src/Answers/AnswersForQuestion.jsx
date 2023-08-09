@@ -2,22 +2,20 @@ import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 const fetchAnswersForQuestion = (id) => {
-    return fetch("http://localhost:8080/questions/:id/answers")
+    return fetch(`http://localhost:8080/questions/${id}/answers`)
         .then(response => response.json());
 }
 const AnswersForQuestion = () => {
     const params = useParams();
-    const [answersForQuestion, setAnswersForQuestion] = useState(null);
-
+    const [questionWithAnswers, setQuestionWithAnswers] = useState(null);
     useEffect(() => {
         fetchAnswersForQuestion(params.id)
-            .then(answers => setAnswersForQuestion(answers));
-    })
+            .then(answers => setQuestionWithAnswers(answers));
+    }, [])
 
-    if (answersForQuestion == null) return (<div>LOADING...</div>);
+    if (questionWithAnswers == null) return (<div>LOADING...</div>);
     return (<div className={"AnswersForQuestions"}>
-        {answersForQuestion.map(question => (<div key={question.id}>
-                <h1>{question.description}</h1>
+                <h1>{questionWithAnswers.description}</h1>
 
                 <table className={"QuestionsTable"}>
                     <thead>
@@ -31,7 +29,7 @@ const AnswersForQuestion = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {question.answers.map(answer => (<tr key={answer.id}>
+                    {questionWithAnswers.answers.map(answer => (<tr key={answer.id}>
                         <td>
                             {answer.text}
                         </td>
@@ -41,7 +39,6 @@ const AnswersForQuestion = () => {
                     </tr>))}
                     </tbody>
                 </table>
-            </div>))}
-    </div>);
+            </div>)
 }
 export default AnswersForQuestion;
