@@ -1,5 +1,6 @@
 import "./MainPage.css";
 import {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 
 const fetchQuestions = () => {
     return fetch("http://localhost:8080/questions/all")
@@ -10,7 +11,6 @@ const MainPage = () => {
     useEffect(() => {
         fetchQuestions()
             .then(questions => {
-                console.log(questions)
                 setQuestions(questions);
             })
     }, []);
@@ -33,7 +33,7 @@ const MainPage = () => {
                 <tbody>
                 {questions.map(question => (<tr key={question.id}>
                     <td>
-                        {question.title}
+                        <Link to={"/answers/:id"}>{question.title}</Link>
                     </td>
                     <td>
                         {question.created}

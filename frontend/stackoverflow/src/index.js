@@ -7,13 +7,14 @@ import './router.css';
 import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
 import MainPage from "./MainPage";
+import AnswersForQuestion from "./Answers";
 
 const index = createBrowserRouter([{
     path: "/", element: <Layout/>, errorElement: <ErrorPage/>, children: [{
         path: "/", element: <MainPage/>
-    }, /*{
-        path: "/:id", element: <Question/>
-    }*/]
+    }, {
+        path: "/answers/:id", element: <AnswersForQuestion/>
+    }]
 }]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
