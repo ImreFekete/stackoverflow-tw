@@ -1,0 +1,9 @@
+.QuestionsTable{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+th, td{
+    border: 1px solid;
+}
+
