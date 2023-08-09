@@ -91,8 +91,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public boolean deleteQuestionByID(int id) {
-        String SQL = "DELETE FROM questions WHERE question_id = ?;"
-                + "DELETE FROM answers WHERE question_id = ?";
+        String SQL = "DELETE FROM answers WHERE question_id = ?;"
+                + "DELETE FROM questions WHERE question_id = ?";
 
         try (Connection conn = sqlConnector.connect();
              PreparedStatement pstmt = conn.prepareStatement(SQL)) {
