@@ -1,0 +1,12 @@
+.MainPage{
+    display: flex;
+    justify-content: center;
+}
+.QuestionsTable{
+    display: table;
+    width: 80%;
+}
+table, th, td{
+    border: 1px solid;
+}
+
