@@ -23,9 +23,10 @@ public class QuestionService {
         this.questionsDAO = questionsDAO;
     }
 
-    public List<QuestionDTO> getAllQuestions() {
+    public List<QuestionDTO> getAllQuestions(String sortBy, String orderBy) {
+
         List<QuestionDTO> questionDTOS = new ArrayList<>();
-        for (Question question : questionsDAO.getAll()) {
+        for (Question question : questionsDAO.getAll(sortBy, orderBy)) {
             questionDTOS.add(new QuestionDTO(question.id(), question.title(), question.text(), question.date(), question.answerCount()));
         }
         return questionDTOS;

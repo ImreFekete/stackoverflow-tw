@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface QuestionsDAO {
 
-    List<Question> getAll();
+    List<Question> getAll(String orderBy, String direction);
     Question getQuestionById(int id);
     List<Answer> getQAnswersByQuestionId(int id);
     int addNewQuestion(NewQuestionDTO newQuestion);
