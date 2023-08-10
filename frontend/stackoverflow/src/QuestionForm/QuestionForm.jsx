@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const QuestionForm = ({ onSave, disabled, employee: question, onCancel }) => {
+const QuestionForm = ({ onSave, disabled, question, onCancel }) => {
     const [title, setTitle] = useState(question?.name ?? "");
     const [text, setText] = useState(question?.text ?? "");
 
@@ -24,7 +24,7 @@ const QuestionForm = ({ onSave, disabled, employee: question, onCancel }) => {
     return (
         <form className="EmployeeForm" onSubmit={onSubmit}>
             <div className="control">
-                <label htmlFor="name">Name:</label>
+                <label htmlFor="title">Title: </label>
                 <input
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}

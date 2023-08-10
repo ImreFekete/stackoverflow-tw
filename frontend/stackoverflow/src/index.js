@@ -9,6 +9,7 @@ import ErrorPage from "./ErrorPage";
 import MainPage from "./MainPage";
 import AnswersForQuestion from "./Answers";
 import QuestionCreator from "./QuestionCreator/QuestionCreator";
+import AnswerCreator from "./AnswerCreator";
 
 const index = createBrowserRouter([{
     path: "/", element: <Layout/>, errorElement: <ErrorPage/>, children: [{
@@ -17,6 +18,8 @@ const index = createBrowserRouter([{
         path: "/answers/:id", element: <AnswersForQuestion/>
     }, {
         path: "/add/question", element: <QuestionCreator/>
+    }, {
+        path: "/:id/add/answer", element: <AnswerCreator/>
     }]
 }]);
 
