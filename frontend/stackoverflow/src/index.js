@@ -8,12 +8,15 @@ import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
 import MainPage from "./MainPage";
 import AnswersForQuestion from "./Answers";
+import QuestionCreator from "./QuestionCreator/QuestionCreator";
 
 const index = createBrowserRouter([{
     path: "/", element: <Layout/>, errorElement: <ErrorPage/>, children: [{
         path: "/", element: <MainPage/>
     }, {
         path: "/answers/:id", element: <AnswersForQuestion/>
+    }, {
+        path: "/add/question", element: <QuestionCreator/>
     }]
 }]);
 

@@ -8,6 +8,9 @@ const Layout = () =>{
                 <li>
                     <Link to={"/"}>SnackOverflow</Link>
                 </li>
+                <li>
+                    <Link to={"/add/question"}>Add Question</Link>
+                </li>
             </ul>
         </nav>
         <Outlet />
