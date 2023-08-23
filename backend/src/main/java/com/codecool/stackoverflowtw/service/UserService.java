@@ -20,7 +20,7 @@ public class UserService {
         return userDAO.addNewUser(user);
     }
 
-    public boolean authUser(NewUserDTO user){
+    public int authUser(NewUserDTO user){
         return userDAO.authUser(user);
     }
 }

@@ -26,6 +26,9 @@ const AnswersForQuestion = () => {
                         <th>
                             Date
                         </th>
+                        <th>
+                        
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -35,6 +38,9 @@ const AnswersForQuestion = () => {
                         </td>
                         <td>
                             {answer.date}
+                        </td>
+                        <td>
+                            {answer.username}
                         </td>
                     </tr>))}
                     </tbody>

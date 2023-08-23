@@ -30,9 +30,10 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> authUser(@RequestBody NewUserDTO user) {
-        if (userService.authUser(user)) {
+        if (userService.authUser(user) > 0) {
             Map<String, String> data = new HashMap<>();
             data.put("success", "true");
+            data.put("userID", String.valueOf(userService.authUser(user)));
             return new ResponseEntity<>(data, HttpStatus.OK);
         } else {
             Map<String, String> data = new HashMap<>();

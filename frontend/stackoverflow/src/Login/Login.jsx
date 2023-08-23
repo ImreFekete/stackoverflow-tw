@@ -27,7 +27,7 @@ const Login = () => {
     if (res.ok) {
       setLoginPopup(true);
       setUserName(data.username);
-      sessionStorage.setItem("userId", data);
+      sessionStorage.setItem("userId", data.userID)
       setTimeout(() => {
         setLoginPopup(false);
         navigate("/")

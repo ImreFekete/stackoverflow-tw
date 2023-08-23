@@ -9,12 +9,14 @@ const AnswerForm = ({ onSave, disabled, answer, onCancel }) => {
         if (answer) {
             return onSave({
                 ...answer,
-                text: text
+                text: text,
+                userID: sessionStorage.getItem("userId")
             });
         }
 
         return onSave({
-            text: text
+            text: text,
+            userID: sessionStorage.getItem("userId")
         });
     };
 

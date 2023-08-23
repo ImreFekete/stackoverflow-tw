@@ -5,5 +5,5 @@ import com.codecool.stackoverflowtw.controller.dto.NewUserDTO;
 
 public interface UserDAO {
     int addNewUser(NewUserDTO newUser);
-    boolean authUser(NewUserDTO user);
+    int authUser(NewUserDTO user);
 }

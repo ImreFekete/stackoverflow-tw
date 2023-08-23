@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import QuestionForm from "../QuestionForm/QuestionForm";
 import AnswerForm from "../AnswerForm";
 const CreateAnswer = (answer, id) => {
     console.log(answer, id)

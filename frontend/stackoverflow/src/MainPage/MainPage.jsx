@@ -48,6 +48,9 @@ event.preventDefault();
                     Date
                 </th>
                 <th>
+                    
+                </th>
+                <th>
                     Answer Count
                 </th>
             </tr>
@@ -59,6 +62,9 @@ event.preventDefault();
                 </td>
                 <td>
                     {question.created}
+                </td>
+                <td>
+                    {question.username}
                 </td>
                 <td>
                     {question.answerCount}

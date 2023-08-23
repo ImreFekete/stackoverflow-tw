@@ -21,10 +21,11 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Question> getAll(String sortBy, String direction) {
         String orderSQL = sortBy + " " + direction + ";";
-        String SQL = "SELECT q.*, COUNT(a.answer_id) AS answer_count " +
-                    "FROM questions q " +
-                    "LEFT JOIN public.answers a ON q.question_id = a.question_id " +
-                    "GROUP BY q.question_id " + orderSQL;
+        String SQL = "SELECT q.*, COUNT(a.answer_id) AS answer_count, user_username " +
+                "FROM questions q " +
+                "LEFT JOIN public.answers a ON q.question_id = a.question_id " +
+                "LEFT JOIN public.users u on u.user_id = q.user_id " +
+                "GROUP BY q.question_id, user_username" + orderSQL;
 
         List<Question> questions = new ArrayList<>();
         try (Connection conn = sqlConnector.connect();
@@ -33,7 +34,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             while (rs.next()) {
                 questions.add(new Question(rs.getInt("question_id"), rs.getString("question_title"),
                         rs.getString("question_text"),
-                        rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count")));
+                        rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count"), rs.getString("user_username")));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -45,11 +46,12 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public Question getQuestionById(int id) {
         String SQL = """
-                SELECT q.*, COUNT(a.answer_id) AS answer_count
+                SELECT q.*, COUNT(a.answer_id) AS answer_count, user_username
                 FROM questions q
-                         LEFT JOIN public.answers a ON q.question_id = a.question_id
+                    LEFT JOIN public.answers a ON q.question_id = a.question_id
+                    LEFT JOIN users u ON q.user_id = u.user_id
                 WHERE q.question_id = ?
-                GROUP BY q.question_id
+                GROUP BY q.question_id, user_username
                 ORDER BY question_id;""";
         Question question = null;
         try (Connection conn = sqlConnector.connect();
@@ -60,7 +62,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
                 while (rs.next()) {
                     question = new Question(rs.getInt("question_id"), rs.getString("question_title"),
                             rs.getString("question_text"),
-                            rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count"));
+                            rs.getTimestamp("created_at").toLocalDateTime(), rs.getInt("answer_count"), rs.getString("user_username"));
                 }
             }
 
@@ -74,7 +76,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     @Override
     public List<Answer> getQAnswersByQuestionId(int id) {
         String SQL = """
-                SELECT * FROM answers WHERE question_id = ? ORDER BY answer_id
+                SELECT a.*, user_username FROM answers a LEFT JOIN public.users u on u.user_id = a.user_id WHERE question_id = ? ORDER BY created_at ASC
                 ;""";
         List<Answer> answers = new ArrayList<>();
         try (Connection conn = sqlConnector.connect();
@@ -83,7 +85,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    answers.add(new Answer(rs.getInt("answer_id"), rs.getString("answer_text"), rs.getTimestamp("created_at").toLocalDateTime()));
+                    answers.add(new Answer(rs.getInt("answer_id"), rs.getString("answer_text"), rs.getTimestamp("created_at").toLocalDateTime(), rs.getString("user_username")));
                 }
             }
         } catch (SQLException ex) {
@@ -96,8 +98,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public int addNewQuestion(NewQuestionDTO newQuestion) {
-        String SQL = "INSERT INTO questions (question_title, question_text, created_at)" +
-                "VALUES(?,?,?)";
+        String SQL = "INSERT INTO questions (question_title, question_text, created_at, user_id)" +
+                "VALUES(?,?,?,?)";
         int id = 0;
 
         try (Connection conn = sqlConnector.connect();
@@ -107,6 +109,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             pstmt.setString(1, newQuestion.title());
             pstmt.setString(2, newQuestion.text());
             pstmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            pstmt.setInt(4, Integer.parseInt(newQuestion.userID()));
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -126,8 +129,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public int addNewAnswer(NewAnswerDTO newAnswer, int id) {
-        String SQL = "INSERT INTO answers (answer_text, created_at, question_id)" +
-                "VALUES(?,?,?)";
+        String SQL = "INSERT INTO answers (answer_text, created_at, question_id, user_id)" +
+                "VALUES(?,?,?,?)";
         int respId = 0;
 
         try (Connection conn = sqlConnector.connect();
@@ -137,6 +140,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             pstmt.setString(1, newAnswer.text());
             pstmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             pstmt.setInt(3, id);
+            pstmt.setInt(4, Integer.parseInt(newAnswer.userID()));
 
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {

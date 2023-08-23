@@ -11,13 +11,15 @@ const QuestionForm = ({ onSave, disabled, question, onCancel }) => {
             return onSave({
                 ...question,
                 title: title,
-                text: text
+                text: text,
+                userID: sessionStorage.getItem("userId")
             });
         }
 
         return onSave({
             title: title,
-            text: text
+            text: text,
+            userID: sessionStorage.getItem("userId")
         });
     };
 

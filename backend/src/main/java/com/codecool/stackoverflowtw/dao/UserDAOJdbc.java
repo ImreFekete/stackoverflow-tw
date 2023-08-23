@@ -48,7 +48,7 @@ public class UserDAOJdbc implements UserDAO {
     }
 
     @Override
-    public boolean authUser(NewUserDTO user) {
+    public int authUser(NewUserDTO user) {
         String SQL = """
                 SELECT *
                 FROM users WHERE user_username = ?""";
@@ -60,7 +60,7 @@ public class UserDAOJdbc implements UserDAO {
                 while (rs.next()) {
                     String encodedPassword = rs.getString("user_password");
                     if (encoder.matches(user.password(), encodedPassword)) {
-                        return true;
+                        return rs.getInt("user_id");
                     }
                 }
             }
@@ -68,6 +68,6 @@ public class UserDAOJdbc implements UserDAO {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
 }
