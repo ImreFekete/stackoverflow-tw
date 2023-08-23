@@ -8,6 +8,8 @@ import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
 import MainPage from "./MainPage";
 import AnswersForQuestion from "./Answers";
+import QuestionCreator from "./QuestionCreator/QuestionCreator";
+import AnswerCreator from "./AnswerCreator";
 import Login from './Login/Login';
 import Register from './Register/Register';
 
@@ -20,6 +22,10 @@ const index = createBrowserRouter([{
         path: "/login", element: <Login/>
     }, {
         path: "/register", element: <Register/>
+    }, {
+        path: "/add/question", element: <QuestionCreator/>
+    }, {
+        path: "/:id/add/answer", element: <AnswerCreator/>
     }]
 }]);
 

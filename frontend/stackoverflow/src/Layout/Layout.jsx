@@ -14,6 +14,9 @@ const Layout = () =>{
                 <li>
                     <Link to={"/register"}>Register</Link>
                 </li>
+                <li>
+                    <Link to={"/add/question"}>Add Question</Link>
+                </li>
             </ul>
         </nav>
         <Outlet />

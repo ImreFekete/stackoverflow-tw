@@ -8,7 +8,7 @@ import com.codecool.stackoverflowtw.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("questions")
@@ -21,8 +21,16 @@ public class QuestionController {
     }
 
     @GetMapping("/all")
-    public List<QuestionDTO> getAllQuestions() {
-        return questionService.getAllQuestions();
+    public List<QuestionDTO> getAllQuestions(@RequestParam String order_by, @RequestParam String direction) {
+        Map<String, String> mapToSqlColumnName = new HashMap<>(){{
+            put("title", "ORDER BY question_title");
+            put("date", "ORDER BY created_at");
+            put("answercount", "ORDER BY answer_count");
+        }};
+        String orderBy = mapToSqlColumnName.getOrDefault(order_by, "");
+
+        return questionService.getAllQuestions(orderBy,
+                direction.equals("ASC") || direction.equals("DESC") ? direction : "");
     }
 
     @GetMapping("/{id}")

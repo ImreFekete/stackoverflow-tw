@@ -39,6 +39,7 @@ const AnswersForQuestion = () => {
                     </tr>))}
                     </tbody>
                 </table>
+            <Link to={`/${questionWithAnswers.id}/add/answer`}>Add new Answer</Link>
             </div>)
 }
 export default AnswersForQuestion;

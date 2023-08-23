@@ -19,13 +19,13 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public List<Question> getAll() {
-        String SQL = """
-                SELECT q.*, COUNT(a.answer_id) AS answer_count
-                FROM questions q
-                         LEFT JOIN public.answers a ON q.question_id = a.question_id
-                GROUP BY q.question_id
-                ORDER BY question_id;""";
+    public List<Question> getAll(String sortBy, String direction) {
+        String orderSQL = sortBy + " " + direction + ";";
+        String SQL = "SELECT q.*, COUNT(a.answer_id) AS answer_count " +
+                    "FROM questions q " +
+                    "LEFT JOIN public.answers a ON q.question_id = a.question_id " +
+                    "GROUP BY q.question_id " + orderSQL;
+
         List<Question> questions = new ArrayList<>();
         try (Connection conn = sqlConnector.connect();
              Statement stmt = conn.createStatement();
