@@ -8,12 +8,18 @@ import Layout from "./Layout";
 import ErrorPage from "./ErrorPage";
 import MainPage from "./MainPage";
 import AnswersForQuestion from "./Answers";
+import Login from './Login/Login';
+import Register from './Register/Register';
 
 const index = createBrowserRouter([{
     path: "/", element: <Layout/>, errorElement: <ErrorPage/>, children: [{
         path: "/", element: <MainPage/>
     }, {
         path: "/answers/:id", element: <AnswersForQuestion/>
+    }, {
+        path: "/login", element: <Login/>
+    }, {
+        path: "/register", element: <Register/>
     }]
 }]);
 

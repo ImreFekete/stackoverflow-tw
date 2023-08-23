@@ -8,6 +8,12 @@ const Layout = () =>{
                 <li>
                     <Link to={"/"}>SnackOverflow</Link>
                 </li>
+                <li>
+                    <Link to={"/login"}>Login</Link>
+                </li>
+                <li>
+                    <Link to={"/register"}>Register</Link>
+                </li>
             </ul>
         </nav>
         <Outlet />

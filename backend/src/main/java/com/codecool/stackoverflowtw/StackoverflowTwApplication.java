@@ -2,6 +2,8 @@ package com.codecool.stackoverflowtw;
 
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
+import com.codecool.stackoverflowtw.dao.UserDAO;
+import com.codecool.stackoverflowtw.dao.UserDAOJdbc;
 import com.codecool.stackoverflowtw.service.SQLconnector;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,5 +19,10 @@ public class StackoverflowTwApplication {
     public QuestionsDAO questionsDAO() {
         SQLconnector sqlConnector = new SQLconnector();
         return new QuestionsDaoJdbc(sqlConnector);
+    }
+    @Bean
+    public UserDAO userDAO(){
+        SQLconnector sqlConnector = new SQLconnector();
+        return new UserDAOJdbc(sqlConnector);
     }
 }
