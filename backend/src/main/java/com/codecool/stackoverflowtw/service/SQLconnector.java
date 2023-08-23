@@ -1,14 +1,17 @@
 package com.codecool.stackoverflowtw.service;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class SQLconnector {
+    private final String url = System.getenv("DB_URL");
 
-    private final String url = "jdbc:postgresql://localhost:5432/stackoverflow";
-    private final String user = "feket";
-    private final String password = "123456789";
+    private final String user =  System.getenv("DB_USER");
+
+    private final String password  =  System.getenv("DB_PASS");;
 
     public Connection connect() {
         Connection conn = null;
