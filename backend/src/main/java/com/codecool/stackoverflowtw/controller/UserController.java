@@ -28,7 +28,7 @@ public class UserController {
         return userService.addNewUser(user);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public ResponseEntity<Object> authUser(@RequestBody NewUserDTO user) {
         if (userService.authUser(user) > 0) {
             Map<String, String> data = new HashMap<>();

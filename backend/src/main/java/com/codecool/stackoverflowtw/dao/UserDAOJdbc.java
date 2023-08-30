@@ -9,8 +9,8 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class UserDAOJdbc implements UserDAO {
-    private SQLconnector sqlconnector;
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final SQLconnector sqlconnector;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public UserDAOJdbc(SQLconnector sqlconnector) {
         this.sqlconnector = sqlconnector;
