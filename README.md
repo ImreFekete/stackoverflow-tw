@@ -1,32 +1,42 @@
-# Stackoverflow TW Project
+# SnackOverFlow Project
 
-- Main page listing all questions with details, date and answer count
-- Feature to sort questions on Main page by alphabet, date or answer count
-- Detail page of a question shows who asked it and lists all answers with date and users
-- Feature to add new question (redirects to question detail page after save)
-- Feature to add new answer (location: question detail page)
-- Feature to delete question (later extend so only the owner can delete it)
-- Feature to delete answer (location: question delete page) (later extend so only the owner can delete it)
-- Feature to Register new user
-- Feature to Login with user and store session (who is currently logged in is always visible on frontend)
-- Feature to Logout user
-- Users list page: shows username, registration date, number of questions, number of answers
-- Feature to mark the accepted answer for the user's own question
-- Write tests for the service layer
+Welcome to the SnackOverFlow Project! This web application aims to provide a platform for users to ask questions, share knowledge, and engage in discussions, much like StackOverflow. The project is built using Spring Boot for the backend and a lightweight React frontend.
 
-#### Extra:
-- OPTIONAL: Admin user type can delete any question or answer
-- OPTIONAL: Filter by question titles  (location: main page)
-- OPTIONAL: Feature to tag questions
-- OPTIONAL: Feature to edit questions (limited to the ones created by the user)
-- OPTIONAL: Feature to edit answers (limited to the ones created by the user)
-- OPTIONAL: Feature to calculate reputation of the user and display them differently if they are very active on the site (display reputation on user list page too)
+## Table of Contents
 
-## General requirements: 
-- Create an SQL database to store your data
-- Stick to Model View Controller layers (Frontend doesn't do calculations, only displays the data, SQL handles the data manipulation)
-- Do the base data features first and add user management later, extend already existing ones if necessary 
-- Aim for the code to keep SOLID, OOP and Clean code principles
-- Focus on the Java & SQL parts and do minimal frontend as it is not the goal of this project
-- Vanilla Javascript and HTML is suggested for frontend, nothing more complicated (like frameworks) is necessary 
-- If you need new API endpoints ask mentors to create them for you
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Technologies Used
+
+This project utilizes the following technologies:
+
+- **Spring Boot**: A Java-based framework for building robust and scalable web applications.
+- **PostgreSQL**: A powerful open-source relational database system used to store forum data.
+- **React**: A JavaScript library for building user interfaces.
+
+## Getting Started
+
+To get started with the project, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Configure your PostgreSQL database and update the database connection settings.
+3. Build and run the Spring Boot backend.
+4. Build and run the React frontend.
+5. Access the forum site in your browser.
+
+## Features
+
+- **User Authentication**: Users can create accounts, log in, and manage their profiles.
+- **Ask and Answer Questions**: Users can post questions and provide answers to others.
+
+## Usage
+
+1. Register for an account or log in if you already have one.
+2. Explore questions, answers, and discussions on various topics.
+3. Ask questions and provide answers to share your knowledge.
+4. 
