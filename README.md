@@ -8,8 +8,6 @@ Welcome to the SnackOverFlow Project! This web application aims to provide a pla
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Technologies Used
 
