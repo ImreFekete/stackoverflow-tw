@@ -37,4 +37,3 @@ To get started with the project, follow these steps:
 1. Register for an account or log in if you already have one.
 2. Explore questions, answers, and discussions on various topics.
 3. Ask questions and provide answers to share your knowledge.
-4. 
