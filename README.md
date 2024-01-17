@@ -29,8 +29,11 @@ To get started with the project, follow these steps:
 
 ## Features
 
-- **User Authentication**: Users can create accounts, log in, and manage their profiles.
-- **Ask and Answer Questions**: Users can post questions and provide answers to others.
+- Main Page Listing: View all questions with details, dates, and answer counts.
+- Sorting Functionality: Sort questions on the main page by alphabet, date, or answer count.
+- Question Detail Page: Explore individual questions, and access a list of answers with dates and users.
+- Adding Questions and Answers: Users can add new questions and answer to existing ones.
+- User Authentication: Register new users, log in, and store sessions.
 
 ## Usage
 
