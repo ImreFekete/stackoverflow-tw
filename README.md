@@ -13,9 +13,9 @@ Welcome to the SnackOverFlow Project! This web application aims to provide a pla
 
 This project utilizes the following technologies:
 
-- **Spring Boot**: A Java-based framework for building robust and scalable web applications.
-- **PostgreSQL**: A powerful open-source relational database system used to store forum data.
-- **React**: A JavaScript library for building user interfaces.
+- [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#getting-started): A Java-based framework for building robust and scalable web applications.
+- [PostgreSQL](https://www.postgresql.org/docs/current/): A powerful open-source relational database system used to store forum data.
+- [React](https://react.dev/learn): A JavaScript library for building user interfaces.
 
 ## Getting Started
 
