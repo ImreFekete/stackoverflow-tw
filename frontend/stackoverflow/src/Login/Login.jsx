@@ -11,7 +11,7 @@ const Login = () => {
     const [loginPopup, setLoginPopup] = useState(false);
     const [invalidPopup, setInvalidPopup] = useState(false);
 
-    const URL = 'http://localhost:8080/users/login';
+    const URL = `${process.env.BACKEND_URL}/users/login`;
     const submitLogin = async () => {
         const res = await fetch(URL, {
             method: 'POST',

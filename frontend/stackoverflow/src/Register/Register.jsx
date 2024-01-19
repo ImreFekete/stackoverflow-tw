@@ -10,7 +10,7 @@ function Register() {
   const [popup, setPopup] = useState(false);
   const [PopupMessage, setPopupMessage] = useState('');
 
-  const URL = 'http://localhost:8080/users/add-new';
+  const URL = `${process.env.BACKEND_URL}/users/add-new`;
 
   const submitRegistration = async () => {
     if (checkDetails()) {

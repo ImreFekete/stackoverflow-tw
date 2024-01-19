@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 const fetchQuestions = (sortBy, direction) => {
-    return fetch(`http://localhost:8080/questions/all?order_by=${sortBy}&direction=${direction}`)
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/questions/all?order_by=${sortBy}&direction=${direction}`)
         .then(response => response.json());
 }
 const MainPage = () => {

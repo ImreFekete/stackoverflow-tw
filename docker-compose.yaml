@@ -22,8 +22,6 @@ services:
   postgresdb:
     container_name: db
     image: dbimage
-    ports:
-      - 5432:5432
     environment:
       PGDATA: /data
       POSTGRES_USER: ${DB_USER}

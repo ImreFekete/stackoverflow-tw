@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import AnswerForm from "../AnswerForm";
 const CreateAnswer = (answer, id) => {
     console.log(answer, id)
-    return fetch(`http://localhost:8080/questions/${id}/add-new-answer`, {
+    return fetch(`${process.env.BACKEND_URL}/questions/${id}/add-new-answer`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

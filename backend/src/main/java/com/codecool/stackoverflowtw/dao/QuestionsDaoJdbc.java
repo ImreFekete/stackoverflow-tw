@@ -20,7 +20,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     @Override
     public List<Question> getAll(String sortBy, String direction) {
-        String orderSQL = sortBy + " " + direction + ";";
+        String orderSQL = " " + sortBy + " " + direction + ";";
         String SQL = "SELECT q.*, COUNT(a.answer_id) AS answer_count, user_username " +
                 "FROM questions q " +
                 "LEFT JOIN public.answers a ON q.question_id = a.question_id " +
