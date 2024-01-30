@@ -1,8 +1,6 @@
-FROM node:21-alpine3.17
-
-WORKDIR /frontend
-COPY /frontend/stackoverflow .
-
-RUN npm install 
-
-CMD [ "npm", "start"]
+FROM nginx:alpine
+COPY /frontend/stackoverflow/build /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

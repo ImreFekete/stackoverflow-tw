@@ -10,11 +10,10 @@ function Register() {
   const [popup, setPopup] = useState(false);
   const [PopupMessage, setPopupMessage] = useState('');
 
-  const URL = `${process.env.BACKEND_URL}/users/add-new`;
-
   const submitRegistration = async () => {
     if (checkDetails()) {
-      const res = await fetch(URL, {
+      console.log(process.env.REACT_APP_BACKEND_URL)
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/add-new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

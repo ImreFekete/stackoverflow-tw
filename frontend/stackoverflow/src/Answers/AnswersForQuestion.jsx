@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../Layout/Layout";
 
 const fetchAnswersForQuestion = (id) => {
-    return fetch(`${process.env.BACKEND_URL}/questions/${id}/answers`)
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/questions/${id}/answers`)
         .then(response => response.json());
 }
 const AnswersForQuestion = () => {
