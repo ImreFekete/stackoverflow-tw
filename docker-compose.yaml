@@ -1,30 +1,33 @@
 version: "3"
 
 services:
-  frontend:
-    container_name: frontend
-    image: stackoverflow-frontend
-    ports:
-      - 3000:3000
-    depends_on:
-      - backend
   backend:
-    container_name: backend
-    image: stackoverflow-backend
-    ports:
-      - 8080:8080
+    container_name: stackoverflow-backend
+    image: feketeimre/stackoverflow-b
     environment:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
     depends_on:
       - postgresdb
+
   postgresdb:
-    container_name: db
-    image: dbimage
+    container_name: postgres-db
+    image: feketeimre/dbimage
     environment:
       PGDATA: /data
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
     volumes:
-     - /apps/postgres:/data
+      - /apps/postgres:/data
+
+  frontend:
+    container_name: stackoverflow-frontend
+    image: feketeimre/stackoverflow-f
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_HOST=http://backend
+      - BACKEND_PORT=8080

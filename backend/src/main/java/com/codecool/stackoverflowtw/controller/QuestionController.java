@@ -23,15 +23,7 @@ public class QuestionController {
     @GetMapping("/all")
     public List<QuestionDTO> getAllQuestions(@RequestParam(required = false, defaultValue = "title") String order_by,
         @RequestParam(required = false, defaultValue = "ASC") String direction) {
-        Map<String, String> mapToSqlColumnName = new HashMap<>(){{
-            put("title", "ORDER BY question_title");
-            put("date", "ORDER BY created_at");
-            put("answercount", "ORDER BY answer_count");
-        }};
-        String orderBy = mapToSqlColumnName.getOrDefault(order_by, "");
-
-        return questionService.getAllQuestions(orderBy,
-                direction.equals("ASC") || direction.equals("DESC") ? direction : "ASC");
+        return questionService.getAllQuestions(order_by, direction);
     }
 
     @GetMapping("/{id}")
