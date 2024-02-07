@@ -7,7 +7,7 @@ Welcome to the SnackOverFlow Project! This web application aims to provide a pla
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [Features](#features)
-- [Usage](#usage)
+- [Future of this project](#future)
 
 ## Technologies Used
 
@@ -42,7 +42,12 @@ backend:
 ```
 ## Run The Application
 
-You can run the application with the help of Docker Compose. You will need to specify the user name(DB_USER) and the password(DB_PASS) for the postgres database in a .env file in the root directory.
+You can run the application with the help of Docker Compose.
+First you will need a .env file in the root directory with the username and password for the postgres database:
+```.env
+DB_USER= username
+DB_PASS= password
+```
 In the root directory you can run the application with:
 ```sh
   $ docker compose up
@@ -57,8 +62,6 @@ the frontend is accessable on localhost:80 in your browser.
 - Adding Questions and Answers: Users can add new questions and answer to existing ones.
 - User Authentication: Register new users, log in, and store sessions.
 
-## Usage
-
-1. Register for an account or log in if you already have one.
-2. Explore questions, answers, and discussions on various topics.
-3. Ask questions and provide answers to share your knowledge.
+## Future
+Following the deployment to AWS EKS, the project will integrate a CI/CD pipeline to streamline development workflows. While the current focus of the frontend is primarily on functionality, future iterations will prioritize the enhancement of visual aesthetics and user experience. Iterative improvements are planned to refine the design and deliver a more polished interface.
+Additionally, as part of our project evolution, we intend to refactor the current repository structure into separate repositories.
