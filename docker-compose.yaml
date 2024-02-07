@@ -5,7 +5,7 @@ services:
     container_name: stackoverflow-backend
     image: feketeimre/stackoverflow-b
     environment:
-      DB_URL: ${DB_URL}
+      DB_URL: jdbc:postgresql://postgresdb:5432/postgres
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
     depends_on:
