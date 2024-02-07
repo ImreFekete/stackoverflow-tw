@@ -19,13 +19,35 @@ This project utilizes the following technologies:
 
 ## Getting Started
 
-To get started with the project, follow these steps:
+### Prerequisities
+- [Java 17 or later version](https://www.oracle.com/java/technologies/downloads/)
+- [Node](https://nodejs.org/en)
+- [Docker](https://docs.docker.com/engine/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 1. Clone this repository to your local machine.
-2. Configure your PostgreSQL database and update the database connection settings.
-3. Build and run the Spring Boot backend.
-4. Build and run the React frontend.
-5. Access the forum site in your browser.
+```sh
+  $ git clone https://github.com/ImreFekete/stackoverflow-tw.git
+```
+2. Install dependencies
+frontend:
+```sh
+  $ cd frontend/stackoverflow
+  $ npm install
+```
+backend:
+```sh
+  $ cd backend
+  $ mvn install
+```
+## Run The Application
+
+You can run the application with the help of Docker Compose. You will need to specify the user name(DB_USER) and the password(DB_PASS) for the postgres database in a .env file in the root directory.
+In the root directory you can run the application with:
+```sh
+  $ docker compose up
+```
+the frontend is accessable on localhost:80 in your browser.
 
 ## Features
 
