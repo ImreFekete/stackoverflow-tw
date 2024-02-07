@@ -42,7 +42,12 @@ backend:
 ```
 ## Run The Application
 
-You can run the application with the help of Docker Compose. You will need to specify the user name(DB_USER) and the password(DB_PASS) for the postgres database in a .env file in the root directory.
+You can run the application with the help of Docker Compose.
+First you will need a .env file in the root directory with the username and password for the postgres database:
+```.env
+DB_USER= username
+DB_PASS= password
+```
 In the root directory you can run the application with:
 ```sh
   $ docker compose up
