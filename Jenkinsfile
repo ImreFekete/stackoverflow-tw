@@ -30,7 +30,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             environment {
                 DOCKER_IMAGE = "feldicskobalazs/javatest:${currentBuild.number}"
-                DOCKERFILE_LOCATION = 'backend.Dockerfile'
+                DOCKERFILE_LOCATION = 'stackoverflow++/backend.Dockerfile'
                 REGISTRY_CREDENTIALS = credentials('dockerhub')
             }
             steps {
