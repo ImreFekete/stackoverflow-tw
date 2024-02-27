@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-            git branch: 'jenkins_cicd', credentialsId: "github", url: 'git@github.com:ImreFekete/stackoverflow-tw.git'
+                git branch: 'jenkins_cicd', credentialsId: 'github', url: 'git@github.com:ImreFekete/stackoverflow-tw.git'
             }
         }
         stage('Build and Test') {
@@ -25,6 +25,13 @@ pipeline {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                     sh 'cd backend && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
                 }
+            }
+        }
+        stage('Build and Push Docker Image') {
+            environment {
+                DOCKER_IMAGE = "feldicskobalazs/javatest:${currentBuild.number}"
+                DOCKERFILE_LOCATION = 'backend.Dockerfile'
+                REGISTRY_CREDENTIALS = credentials('dockerhub')
             }
         }
     }
