@@ -1,23 +1,23 @@
 INSERT INTO answers (answer_text, user_id, question_id, created_at)
 VALUES
     ('For front-end, you can''t go wrong with HTML, CSS, and JavaScript.',
-     2, -- user_id of WebWizard89
-     1, -- question_id of Choosing the Right Programming Language for Web Development
+     2,
+     1,
      NOW()),
 
     ('If you''re leaning towards back-end, consider Python (Django/Flask), Ruby (Ruby on Rails), or Node.js.',
-     3, -- user_id of ByteNinja
-     1, -- question_id of Choosing the Right Programming Language for Web Development
+     3,
+     1,
      NOW()),
 
     ('Java and C# are also solid choices for full-stack development. Java with Spring Boot or C# with ASP.NET provide powerful tools for building robust applications.',
-     4, -- user_id of CodeSmith
-     1, -- question_id of Choosing the Right Programming Language for Web Development
+     4,
+     1,
      NOW()),
 
     ('Don''t forget about PHP! It''s been powering the web for years, and frameworks like Laravel can make development faster and more efficient.',
-     5, -- user_id of WebSlinger
-     1, -- question_id of Choosing the Right Programming Language for Web Development
+     5,
+     1,
      NOW()),
 
     ('Keep in mind your project requirements. If scalability and performance are key, languages like Go and Rust might be worth exploring.',
