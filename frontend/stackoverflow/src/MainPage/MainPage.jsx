@@ -2,25 +2,29 @@ import "./MainPage.css";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-const fetchQuestions = (sortBy, direction) => {
-    return fetch(`http://localhost:8080/questions/all?order_by=${sortBy}&direction=${direction}`)
+const fetchQuestions = (queryParams) => {
+    const queryString = queryParams!==undefined ? `?${queryParams.filter(param => param !== undefined).join('&')}` : '';
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/questions/all${queryString}`)
         .then(response => response.json());
 }
+
 const MainPage = () => {
     const [questions, setQuestions] = useState(null);
-    const [field, setField] = useState("");
-    const [direction, setDirection] = useState("");
+    const [field, setField] = useState(undefined);
+    const [direction, setDirection] = useState(undefined);
     useEffect(() => {
         fetchQuestions()
             .then(questions => {
                 setQuestions(questions);
             })
     }, []);
+
     if (questions == null) return (<div>LOADING...</div>);
 
     const handleSubmit = (event) => {
-event.preventDefault();
-        fetchQuestions(field, direction).then(questions => setQuestions(questions));
+        event.preventDefault();
+        const params = [field, direction]
+        fetchQuestions(params).then(questions => setQuestions(questions));
     }
 
     return (<div className={"MainPage"}>

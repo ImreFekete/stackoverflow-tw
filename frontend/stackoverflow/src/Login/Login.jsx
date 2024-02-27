@@ -10,10 +10,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loginPopup, setLoginPopup] = useState(false);
     const [invalidPopup, setInvalidPopup] = useState(false);
-
-    const URL = 'http://localhost:8080/users/login';
     const submitLogin = async () => {
-        const res = await fetch(URL, {
+        const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -27,3 +27,5 @@ target/
 .idea/
 /mvnw
 /mvnw.cmd
+.env
+.tgz

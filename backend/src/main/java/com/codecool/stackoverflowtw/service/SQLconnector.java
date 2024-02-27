@@ -11,7 +11,7 @@ public class SQLconnector {
 
     private final String user =  System.getenv("DB_USER");
 
-    private final String password  =  System.getenv("DB_PASS");;
+    private final String password  =  System.getenv("DB_PASS");
 
     public Connection connect() {
         Connection conn = null;

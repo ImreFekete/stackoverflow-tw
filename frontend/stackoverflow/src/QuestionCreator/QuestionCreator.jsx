@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionForm from "../QuestionForm/QuestionForm";
 const createQuestion = (question) => {
-    return fetch("http://localhost:8080/questions/", {
+    return fetch(`${process.env.REACT_APP_BACKEND_URL}/questions/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

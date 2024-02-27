@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  backend:
+    container_name: stackoverflow-backend
+    image: feketeimre/stackoverflow-b
+    environment:
+      DB_URL: jdbc:postgresql://postgresdb:5432/postgres
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    container_name: postgres-db
+    image: feketeimre/dbimage
+    environment:
+      PGDATA: /data
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - /apps/postgres:/data
+
+  frontend:
+    container_name: stackoverflow-frontend
+    image: feketeimre/stackoverflow-f
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_HOST=http://backend
+      - BACKEND_PORT=8080
