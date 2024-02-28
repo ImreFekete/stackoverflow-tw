@@ -51,8 +51,8 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'github', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
                     sh '''
-            git config user.email "feldicsko.balazs@gmail.com"
-            git config user.name "feldicskobalazs"
+            git clone git@github.com:ImreFekete/stackoverflow-tw.git
+            cd stackoverflow-tw
             BUILD_NUMBER=${currentBuild.number}
             sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
             git add backend/deployment.yml
