@@ -45,22 +45,20 @@ pipeline {
         }
         stage('Update Deployment File') {
             environment {
-                GIT_REPO_NAME = 'stackoverflow-tw'
-                GIT_USER_NAME = 'feldicskobalazs'
-                GIT_BRANCH = 'jenkins_cicd'
+                TARGET_REPO_NAME = 'ImreFekete/stackoverflow-tw'
+                TARGET_BRANCH = 'jenkins_cicd'
             }
             steps {
-                withCredentials(credentialsId: 'github', variable: 'GITHUB_TOKEN') {
+                withCredentials([sshUserPrivateKey(credentialsId: 'github', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
                     sh '''
-                    git config user.email "feldicsko.balazs@gmail.com"
-                    git config user.name "feldicskobalazs"
-                    git checkout ${GIT_BRANCH}
-                    BUILD_NUMBER=${currentBuild.number}
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
-                    git add backend/deployment.yml
-                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
-                '''
+            git config user.email "feldicsko.balazs@gmail.com"
+            git config user.name "feldicskobalazs"
+            BUILD_NUMBER=${currentBuild.number}
+            sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
+            git add backend/deployment.yml
+            git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+            GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no" git push git@github.com:${TARGET_REPO_NAME}.git HEAD:${TARGET_BRANCH}
+        '''
                 }
             }
         }
