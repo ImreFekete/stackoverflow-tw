@@ -47,12 +47,14 @@ pipeline {
             environment {
                 GIT_REPO_NAME = 'stackoverflow-tw'
                 GIT_USER_NAME = 'feldicskobalazs'
+                GIT_BRANCH = 'jenkins_cicd'
             }
             steps {
                 withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     sh '''
                     git config user.email "feldicsko.balazs@gmail.com"
                     git config user.name "feldicskobalazs"
+                    git checkout ${GIT_BRANCH}
                     BUILD_NUMBER=${currentBuild.number}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
                     git add backend/deployment.yml
