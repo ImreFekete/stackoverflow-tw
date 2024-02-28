@@ -50,7 +50,7 @@ pipeline {
                 TARGET_BRANCH = 'jenkins_cicd'
             }
             steps {
-                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
                     sh '''
             git clone git@github.com:ImreFekete/stackoverflow-tw.git
             cd stackoverflow-tw
