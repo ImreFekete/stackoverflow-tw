@@ -45,11 +45,12 @@ pipeline {
         }
         stage('Update Deployment File') {
             environment {
+                GIT_USER_NAME="feldicskobalazs"
                 TARGET_REPO_NAME = 'ImreFekete/stackoverflow-tw'
                 TARGET_BRANCH = 'jenkins_cicd'
             }
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'github', keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
+                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                     sh '''
             git clone git@github.com:ImreFekete/stackoverflow-tw.git
             cd stackoverflow-tw
@@ -57,7 +58,7 @@ pipeline {
             sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
             git add backend/deployment.yml
             git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-            GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no" git push git@github.com:${TARGET_REPO_NAME}.git HEAD:${TARGET_BRANCH}
+            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${TARGET_REPO_NAME} HEAD:${TARGET_BRANCH}
         '''
                 }
             }
