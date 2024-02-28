@@ -43,25 +43,5 @@ pipeline {
                 }
             }
         }
-        stage('Update Deployment File') {
-            environment {
-                GIT_USER_NAME="feldicskobalazs"
-                TARGET_REPO_NAME = 'ImreFekete/stackoverflow-tw'
-                TARGET_BRANCH = 'jenkins_cicd'
-            }
-            steps {
-                withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
-                    sh '''
-            git clone git@github.com:ImreFekete/stackoverflow-tw.git
-            cd stackoverflow-tw
-            BUILD_NUMBER=${currentBuild.number}
-            sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
-            git add backend/deployment.yml
-            git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-            git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${TARGET_REPO_NAME} HEAD:${TARGET_BRANCH}
-        '''
-                }
-            }
-        }
     }
 }
