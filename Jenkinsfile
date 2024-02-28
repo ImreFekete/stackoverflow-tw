@@ -43,5 +43,24 @@ pipeline {
                 }
             }
         }
+        stage('Update Deployment File') {
+            environment {
+                GIT_REPO_NAME = 'stackoverflow-tw'
+                GIT_USER_NAME = 'feldicskobalazs'
+            }
+            steps {
+                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                    git config user.email "feldicsko.balazs@gmail.com"
+                    git config user.name "feldicskobalazs"
+                    BUILD_NUMBER=${currentBuild.number}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" backend/deployment.yml
+                    git add backend/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+                }
+            }
+        }
     }
 }
